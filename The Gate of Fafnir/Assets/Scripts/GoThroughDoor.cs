@@ -35,19 +35,19 @@ public class GoThroughDoor : MonoBehaviour
             ChangeBoard();
             if (transform.parent.name == "Door U")
             {
-                player.transform.position = player.transform.TransformPoint(0, 0, 3);
+                player.transform.position = new Vector3(0, 0, 3)+ player.transform.position;
             }
             if (transform.parent.name == "Door D")
             {
-                player.transform.position = player.transform.TransformPoint(0, 0, -3);
+                player.transform.position = new Vector3(0, 0, -3) + player.transform.position;
             }
             if (transform.parent.name == "Door L")
             {
-                player.transform.position = player.transform.TransformPoint(-3, 0, 0);
+                player.transform.position = new Vector3(-3, 0, 0) + player.transform.position;
             }
             if (transform.parent.name == "Door R")
             {
-                player.transform.position = player.transform.TransformPoint(3, 0, 0);
+                player.transform.position = new Vector3(3, 0, 0) + player.transform.position;
             }
         }
     }
