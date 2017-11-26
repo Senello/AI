@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EvasiveManeuver : MonoBehaviour {
+public class DodgeScript : MonoBehaviour {
 
     public float DodgeMaxVelocity;
     public float Smoothing;
