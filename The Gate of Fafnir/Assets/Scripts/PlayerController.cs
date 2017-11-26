@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private Transform target;
     private Vector3 velocity = Vector3.zero;
+    private WeaponController weapon;
 
     [System.Serializable]
     public class Boundary
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         target = GetComponent<Transform>();
+        weapon = GetComponentInChildren<WeaponController>();
     }
 
 
@@ -44,5 +46,14 @@ public class PlayerController : MonoBehaviour
             0.0f,
             Mathf.Clamp(transform.position.z, boundary.zMin, boundary.zMax)
         );
+    }
+
+
+    void LateUpdate()
+    {
+        if (Input.GetKey(KeyCode.UpArrow)) weapon.Fire();
+        if (Input.GetKey(KeyCode.DownArrow)) weapon.Fire();
+        if (Input.GetKey(KeyCode.LeftArrow)) weapon.Fire();
+        if (Input.GetKey(KeyCode.RightArrow)) weapon.Fire();
     }
 }

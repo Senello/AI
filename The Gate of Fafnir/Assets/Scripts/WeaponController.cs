@@ -16,7 +16,7 @@ public class WeaponController : MonoBehaviour {
         //audioSource = GetComponent<AudioSource>();
     }
 
-    void Fire ()
+    public void Fire ()
     {
         if (Time.time > nextFire)
         {
@@ -24,14 +24,6 @@ public class WeaponController : MonoBehaviour {
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
             //audioSource.Play();
         }
-    }
-
-    void LateUpdate()
-    {
-        if (Input.GetKey(KeyCode.UpArrow)) Fire();
-        if (Input.GetKey(KeyCode.DownArrow)) Fire();
-        if (Input.GetKey(KeyCode.LeftArrow)) Fire();
-        if (Input.GetKey(KeyCode.RightArrow)) Fire();
     }
 
 }
