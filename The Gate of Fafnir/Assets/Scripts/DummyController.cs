@@ -13,6 +13,8 @@ public class DummyController : MonoBehaviour
 
     void Update()
     {
+        
+
         if (HP <= 0)
         {
             Instantiate(DeathEffect, transform.position, transform.rotation);
