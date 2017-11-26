@@ -18,7 +18,7 @@ public class EvasiveManeuver : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
         StartCoroutine(EvadeX());
-        StartCoroutine(EvadeY());
+        StartCoroutine(EvadeZ());
     }
 
     IEnumerator EvadeX()
@@ -38,7 +38,7 @@ public class EvasiveManeuver : MonoBehaviour {
         }
     }
 
-    IEnumerator EvadeY()
+    IEnumerator EvadeZ()
     {
         yield return new WaitForSeconds(Random.Range(WaitToStartDodge.x, WaitToStartDodge.y));
 
