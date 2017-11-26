@@ -10,6 +10,7 @@ TagManager:
   - Board 3Z
   - Board 2Z2X
   - Board 2X
+  - Bullet
   layers:
   - Default
   - TransparentFX
