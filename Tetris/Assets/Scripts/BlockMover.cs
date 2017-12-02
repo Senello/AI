@@ -6,14 +6,16 @@ using UnityEngine;
 public class BlockMover : MonoBehaviour
 {
     private Transform[] allChildren;
-    private float nextActionTime;
     private float period = 0.15f;
+    private float delay = 1.0f;
+    private float initializationTime;
     public bool Movable = true;
 
     void Start()
     {
         if (Movable)
         {
+            initializationTime = Time.timeSinceLevelLoad;
             allChildren = GetComponentsInChildren<Transform>();
             InvokeRepeating("Move", 0, 0.7f);
         }
@@ -23,11 +25,11 @@ public class BlockMover : MonoBehaviour
     {
         if (Movable)
         {
+            float timeSinceInitialization = Time.timeSinceLevelLoad - initializationTime;
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.DownArrow))
             {
-                if (Time.time > nextActionTime)
+                if (timeSinceInitialization > delay)
                 {
-                    nextActionTime += period;
                     Move();
                 }
             }
