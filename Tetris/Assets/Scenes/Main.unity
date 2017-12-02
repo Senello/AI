@@ -581,6 +581,8 @@ MonoBehaviour:
   - {fileID: 1426963902260142, guid: 41f1f9ab1f2047a42bd191009ac7cb78, type: 2}
   - {fileID: 1686386086038802, guid: 66b5413bd1c0145408839bc5fc99760e, type: 2}
   - {fileID: 1037165206092808, guid: 694c7a38d6817d041a7205a1ca080316, type: 2}
+  CubeDestroyParticle: {fileID: 1842522719696478, guid: 3d4056c9d34839440bb758b21c754c15,
+    type: 2}
   collector: {fileID: 78107487}
   GameOverText: {fileID: 505128773}
   TimeText: {fileID: 758831415}

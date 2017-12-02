@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public static GameController Instace;
     public bool[,] Board = new bool[10, 20];
     public GameObject[] Blocks;
+    public GameObject CubeDestroyParticle;
     public CubeCollector collector;
     public Text GameOverText;
     public Text TimeText;
@@ -76,6 +77,7 @@ public class GameController : MonoBehaviour
                             fullLine = true;
                             for (int k = 0; k < 10; k++)
                             {
+                                Instantiate(CubeDestroyParticle, new Vector3(k, i, -1), CubeDestroyParticle.transform.rotation);
                                 for (int l = i; l < 19; l++)
                                 {
                                     Board[k, l] = Board[k, l + 1];
