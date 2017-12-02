@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     private int score;
     private int combo;
     private int randomBlock;
+    private bool shake;
 
     void Start()
     {
@@ -35,12 +36,13 @@ public class GameController : MonoBehaviour
         }
         GameOverText.text = "";
         TimeText.text = "";
-        ScoreText.text = "Score: "+0;
+        ScoreText.text = "Score: " + 0;
         InfoText.text = "";
         startTime = Time.time;
         nextBlock = true;
         pause = false;
         fullLine = false;
+        shake = false;
         score = 0;
         combo = 0;
         randomBlock = Random.Range(0, Blocks.Length);
@@ -55,7 +57,7 @@ public class GameController : MonoBehaviour
             int s = (int) t % 60;
             string zero = "";
             if (s < 10) zero = "0";
-            TimeText.text = m + ":"+ zero + s;
+            TimeText.text = m + ":" + zero + s;
         }
 
         if (fullLine)
@@ -77,7 +79,8 @@ public class GameController : MonoBehaviour
                             fullLine = true;
                             for (int k = 0; k < 10; k++)
                             {
-                                Instantiate(CubeDestroyParticle, new Vector3(k, i, -1), CubeDestroyParticle.transform.rotation);
+                                Instantiate(CubeDestroyParticle, new Vector3(k, i, -1),
+                                    CubeDestroyParticle.transform.rotation);
                                 for (int l = i; l < 19; l++)
                                 {
                                     Board[k, l] = Board[k, l + 1];
@@ -106,11 +109,11 @@ public class GameController : MonoBehaviour
         if (nextBlock && !pause)
         {
             GameObject toDestroy = GameObject.FindGameObjectWithTag("NextBlock");
-            if(toDestroy != null) Destroy(toDestroy);
+            if (toDestroy != null) Destroy(toDestroy);
             Instantiate(Blocks[randomBlock]);
             randomBlock = Random.Range(0, Blocks.Length);
             GameObject nextBlockObject = Instantiate(Blocks[randomBlock]);
-            if(randomBlock != 4)nextBlockObject.transform.position = new Vector3(-6.5f,6.5f,0f);
+            if (randomBlock != 4) nextBlockObject.transform.position = new Vector3(-6.5f, 6.5f, 0f);
             else nextBlockObject.transform.position = new Vector3(-6.0f, 7.0f, 0f);
             nextBlockObject.GetComponent<BlockMover>().Movable = false;
             nextBlockObject.tag = "NextBlock";
@@ -126,11 +129,27 @@ public class GameController : MonoBehaviour
     {
         nextBlock = var;
         fullLine = true;
+        shake = true;
     }
 
     public bool GetNextBlock()
     {
         return nextBlock;
+    }
+
+    public bool GetFullLine()
+    {
+        return fullLine;
+    }
+
+    public bool GetShake()
+    {
+        return shake;
+    }
+
+    public void SetShake(bool var)
+    {
+        shake = var;
     }
 
     public void GameOver()

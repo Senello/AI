@@ -6,7 +6,6 @@ using UnityEngine;
 public class BlockMover : MonoBehaviour
 {
     private Transform[] allChildren;
-    private float period = 0.15f;
     private float delay = 1.0f;
     private float initializationTime;
     public bool Movable = true;

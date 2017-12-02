@@ -7,7 +7,6 @@ public class CubeCollector : MonoBehaviour
 {
     void Start()
     {
-
     }
 
     void Update()
@@ -36,7 +35,7 @@ public class CubeCollector : MonoBehaviour
         {
             if (Convert.ToInt32(child.position.y) > y)
             {
-                child.transform.position = new Vector3(child.position.x,child.position.y -1,child.position.z);
+                child.transform.position = new Vector3(child.position.x, child.position.y - 1, child.position.z);
             }
         }
     }
