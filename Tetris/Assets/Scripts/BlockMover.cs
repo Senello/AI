@@ -9,15 +9,18 @@ public class BlockMover : MonoBehaviour
     private Transform[] allChildren;
     private float delay = 1.0f;
     private float initializationTime;
+    private float lastMove;
+    private float horizontalDelay = 0.15f;
     private bool canRotate;
     private string n;
     private AudioSource aud;
 
     void Start()
     {
-        n = transform.name;
         if (Movable)
         {
+            n = transform.name;
+            lastMove = Time.time;
             canRotate = true;
             aud = GetComponent<AudioSource>();
             initializationTime = Time.timeSinceLevelLoad;
@@ -47,8 +50,9 @@ public class BlockMover : MonoBehaviour
                 Fade();
                 if (canRotate) aud.Play();
             }
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && Time.time > lastMove + horizontalDelay)
             {
+                lastMove = Time.time;
                 bool canMove = true;
                 foreach (Transform child in allChildren)
                 {
@@ -69,8 +73,9 @@ public class BlockMover : MonoBehaviour
                     transform.position =
                         new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
             }
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && Time.time > lastMove + horizontalDelay)
             {
+                lastMove = Time.time;
                 bool canMove = true;
                 foreach (Transform child in allChildren)
                 {
