@@ -5,15 +5,21 @@ using UnityEngine;
 
 public class BlockMover : MonoBehaviour
 {
+    public bool Movable = true;
     private Transform[] allChildren;
     private float delay = 1.0f;
     private float initializationTime;
-    public bool Movable = true;
+    private bool canRotate;
+    private string n;
+    private AudioSource aud;
 
     void Start()
     {
+        n = transform.name;
         if (Movable)
         {
+            canRotate = true;
+            aud = GetComponent<AudioSource>();
             initializationTime = Time.timeSinceLevelLoad;
             allChildren = GetComponentsInChildren<Transform>();
             InvokeRepeating("Move", 0, 0.7f);
@@ -34,9 +40,12 @@ public class BlockMover : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                transform.Rotate(Vector3.back, 90);
+                if (SpecificRotation(270)) transform.Rotate(Vector3.back, -90);
+                else transform.Rotate(Vector3.back, 90);
+                canRotate = true;
                 Check(0);
                 Fade();
+                if (canRotate) aud.Play();
             }
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -108,7 +117,10 @@ public class BlockMover : MonoBehaviour
                 break;
             }
         }
-
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.DownArrow))
+        {
+            GameController.Instace.SetShake(true);
+        }
         transform.DetachChildren();
         GameController.Instace.SetNextBlock(true);
         Destroy(gameObject);
@@ -129,14 +141,18 @@ public class BlockMover : MonoBehaviour
         {
             if (Convert.ToInt32(child.position.x) < 0 || Convert.ToInt32(child.position.x) > 9)
             {
-                transform.Rotate(Vector3.back, -90);
+                canRotate = false;
+                if (SpecificRotation(0)) transform.Rotate(Vector3.back, 90);
+                else transform.Rotate(Vector3.back, -90);
                 break;
             }
             if (Convert.ToInt32(child.position.y) - below < 0)
             {
                 if (below == 0)
                 {
-                    transform.Rotate(Vector3.back, -90);
+                    canRotate = false;
+                    if (SpecificRotation(0)) transform.Rotate(Vector3.back, 90);
+                    else transform.Rotate(Vector3.back, -90);
                     break;
                 }
                 if (below == 1) Kys();
@@ -153,9 +169,18 @@ public class BlockMover : MonoBehaviour
                      GameController.Instace.Board[Convert.ToInt32(child.position.x),
                          Convert.ToInt32(child.position.y) - below])
             {
-                if (below == 0) transform.Rotate(Vector3.back, -90);
+                canRotate = false;
+                if (below == 0)
+                    if (SpecificRotation(0)) transform.Rotate(Vector3.back, 90);
+                    else transform.Rotate(Vector3.back, -90);
                 if (below == 1) Kys();
             }
         }
+    }
+
+    bool SpecificRotation(int rot)
+    {
+        return (n == "Block I(Clone)" || n == "Block Z(Clone)" || n == "Block -Z(Clone)" ||
+                n == "Block I" || n == "Block Z" || n == "Block -Z") && (int) transform.rotation.eulerAngles.z == rot;
     }
 }
