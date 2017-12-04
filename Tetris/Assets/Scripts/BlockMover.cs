@@ -8,12 +8,24 @@ public class BlockMover : MonoBehaviour
     private Transform[] allChildren;
     private float delay = 1.0f;
     private float initializationTime;
+<<<<<<< HEAD
     public bool Movable = true;
+=======
+    private bool canRotate;
+    private string n;
+    private AudioSource aud;
+>>>>>>> parent of 9c842cb... better horizontal move
 
     void Start()
     {
+        n = transform.name;
         if (Movable)
         {
+<<<<<<< HEAD
+=======
+            canRotate = true;
+            aud = GetComponent<AudioSource>();
+>>>>>>> parent of 9c842cb... better horizontal move
             initializationTime = Time.timeSinceLevelLoad;
             allChildren = GetComponentsInChildren<Transform>();
             InvokeRepeating("Move", 0, 0.7f);
