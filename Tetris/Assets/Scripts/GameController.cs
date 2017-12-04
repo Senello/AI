@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
     public Text TimeText;
     public Text ScoreText;
     public Text InfoText;
+    public AudioClip GameOverClip;
+    private AudioSource aud;
     private float startTime;
     private bool nextBlock;
     private bool pause;
@@ -38,6 +40,9 @@ public class GameController : MonoBehaviour
         TimeText.text = "";
         ScoreText.text = "Score: " + 0;
         InfoText.text = "";
+        
+        aud = GetComponent<AudioSource>();
+
         startTime = Time.time;
         nextBlock = true;
         pause = false;
@@ -60,8 +65,9 @@ public class GameController : MonoBehaviour
             TimeText.text = m + ":" + zero + s;
         }
 
-        if (fullLine)
+        if (nextBlock)
         {
+            fullLine = true;
             while (fullLine)
             {
                 combo++;
@@ -79,8 +85,9 @@ public class GameController : MonoBehaviour
                             fullLine = true;
                             for (int k = 0; k < 10; k++)
                             {
-                                Instantiate(CubeDestroyParticle, new Vector3(k, i, -1),
+                                GameObject CDP= Instantiate(CubeDestroyParticle, new Vector3(k, i, -1),
                                     CubeDestroyParticle.transform.rotation);
+                                if (combo == 1 && k ==0) CDP.GetComponent<AudioSource>().Play();
                                 for (int l = i; l < 19; l++)
                                 {
                                     Board[k, l] = Board[k, l + 1];
@@ -128,8 +135,6 @@ public class GameController : MonoBehaviour
     public void SetNextBlock(bool var)
     {
         nextBlock = var;
-        fullLine = true;
-        shake = true;
     }
 
     public bool GetNextBlock()
@@ -156,5 +161,8 @@ public class GameController : MonoBehaviour
     {
         GameOverText.text = "Game Over";
         pause = true;
+        aud.clip = GameOverClip;
+        aud.loop = false;
+        aud.Play();
     }
 }
