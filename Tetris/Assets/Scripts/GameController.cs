@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     public static GameController Instace;
     public bool[,] Board = new bool[10, 20];
     public GameObject[] Blocks;
-    public GameObject CubeDestroyParticle;
+    public GameObject[] CubeDestroyParticle;
     public CubeCollector collector;
     public Text GameOverText;
     public Text TimeText;
@@ -85,8 +85,8 @@ public class GameController : MonoBehaviour
                             fullLine = true;
                             for (int k = 0; k < 10; k++)
                             {
-                                GameObject CDP= Instantiate(CubeDestroyParticle, new Vector3(k, i, -1),
-                                    CubeDestroyParticle.transform.rotation);
+                                GameObject CDP= Instantiate(CubeDestroyParticle[Random.Range(0,5)], new Vector3(k, i, -1),
+                                    CubeDestroyParticle[0].transform.rotation);
                                 if (combo == 1 && k ==0) CDP.GetComponent<AudioSource>().Play();
                                 for (int l = i; l < 19; l++)
                                 {

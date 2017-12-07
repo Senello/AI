@@ -25,7 +25,7 @@ public class BlockMover : MonoBehaviour
             aud = GetComponent<AudioSource>();
             initializationTime = Time.timeSinceLevelLoad;
             allChildren = GetComponentsInChildren<Transform>();
-            InvokeRepeating("Move", 0, 0.7f);
+            InvokeRepeating("Move", 0, 0.7f - 0.1f * Time.time/60);
         }
     }
 
